@@ -4,17 +4,19 @@
 
 <div id="error_explanation">
     <ul>
-         <% task.errors.full_messages.each do |msg| %>
+        <% task.errors.full_messages.each do |msg| %>
         <li>
           <%= msg %> 
         </li>
         <% end %>
     </ul>
 </div>
-  
-<%= f.label :content, 'タスク' %>
+<% end %>
 
-  
+<%= f.label :status, 'status' %>
+<%= f.text_field :status %>
+
+<%= f.label :content, 'タスク' %>
 <%= f.text_field :content %>
 
 
