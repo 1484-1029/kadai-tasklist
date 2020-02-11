@@ -3,6 +3,11 @@ class TasksController < ApplicationController
   
   def index
     @tasks = Task.order(id: :desc).page(params[:page])
+    
+    if logged_in?
+      @micropost = current_user.microposts.build 
+      @microposts = current_user.microposts.order(id: :desc).page(params[:page])
+    end
   end
 
   def show
