@@ -21,5 +21,10 @@ test:
   database: db/test.sqlite3
 
 production:
-<<: *default
+ adapter: postgresql
+  encoding: unicode
+  pool: 5
+  database: tasklist1484
+  username: 1484-1029
+  password: <%= ENV['TASKLIST_DATABASE_PASSWORD'] %>
    
