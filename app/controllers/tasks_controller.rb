@@ -27,7 +27,7 @@ class TasksController < ApplicationController
     else
       @tasks = current_user.tasks.order(id: :desc).page(params[:page])
       flash.now[:danger] = 'Taskが作成されませんでした'
-      render 'tasks/index'
+      render 'tasks/new'
     end
   end
 
@@ -48,7 +48,7 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     flash[:success] = 'Taskは正常に削除されました'
-    redirect_back(fallback_location: root_path)
+    redirect_to tasks_url
   end
   
   private

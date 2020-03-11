@@ -1,19 +1,15 @@
 <% if @tasks.any? %>
-
-<% if logged_in? %>
-  <p>ログイン完了ユーザ: <%= current_user.name %></p>
-<% else %>
-  <div class="center jumbotron">
-    <div class="text-center">
-      <h1>Welcome to the Microposts</h1>
-      <%= link_to 'Sign up now!', signup_path, class: 'btn btn-lg btn-primary' %>
-    </div>
-  </div>
-<% end %>
-
  <% if logged_in? %>
- <h1>task一覧</h1>
-   <table class="table table-striped">
+ <div id="error_explanation" class="alert-warning">
+   <ul class="mb-0">
+      <% @task.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+   </ul>
+</div>
+ <h1>task投稿一覧</h1>
+ <p>ログイン完了ユーザ: <%= current_user.name %></p>
+ <table class="table table-striped">
      <thead>
        <tr>
          <th>id</th>
@@ -23,11 +19,13 @@
      </thead>
      <tbody>
        <% @tasks.each do |task| %>
+       <% if current_user == task.user %>
          <tr>
            <td><%= link_to task.id, task %></td>
            <td><%= task.content %></td>
           <td><%= task.status  %></td>
          </tr>
+       <% end %>
        <% end %>
      </tbody>
    </table>
@@ -39,20 +37,9 @@
  
  <% if logged_in? %>
   <div class="row">
-    <aside class="col-sm-4">
-      <%= form_with(model: @task, local: true) do |f| %>
-        <div class="form-group">
-        <%= f.label :content, 'タスク' %>
-        <%= f.text_field :content, class: 'form-control' %>
-      </div>
-      <div class="form-group">
-        <%= f.label :status, 'Status' %>
-        <%= f.text_field :status, class: 'form-control' %>
-      </div>
-        <%= f.submit 'Post', class: 'btn btn-primary btn-block' %>
-      <% end %>
+    <aside class="col-sm-2">
+      <%= link_to 'タスク作成', new_task_path(@task), class: 'btn btn-primary btn-block' %>
     </aside>
-    <%= render 'tasks/tasks', tasks: @tasks %>
   </div>
 <% else %>
   <div class="center jumbotron">
@@ -62,6 +49,9 @@
     </div>
   </div>
 <% end %>
+
+
+
 
 
       
