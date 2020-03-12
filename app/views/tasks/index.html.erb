@@ -1,12 +1,5 @@
 <% if @tasks.any? %>
  <% if logged_in? %>
- <div id="error_explanation" class="alert-warning">
-   <ul class="mb-0">
-      <% @task.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-   </ul>
-</div>
  <h1>task投稿一覧</h1>
  <p>ログイン完了ユーザ: <%= current_user.name %></p>
  <table class="table table-striped">
